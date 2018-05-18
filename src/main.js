@@ -293,8 +293,20 @@ function getNLSConfiguration(locale) {
 			perf.mark('nlsGeneration:end');
 			return Promise.resolve(result);
 		} else  {
-			perf.mark('nlsGeneration:end');
-			return Promise.resolve({ locale: locale, availableLanguages: {} });
+			const bundledTranslationsFile = path.join(__dirname, '..', 'bundledTranslations.json');
+			return readFile(bundledTranslationsFile).then(data => {
+				let bundledTranslations = {};
+				try {
+					bundledTranslations = JSON.parse(data);
+				} catch (err) {
+					console.log(`Error parsing bundledTranslations.json: ${err}`);
+				}
+				perf.mark('nlsGeneration:end');
+				return { locale: locale, availableLanguages: {} , bundledTranslations: bundledTranslations[locale] || null};
+			}, (err) => {
+				perf.mark('nlsGeneration:end');
+				console.log(`Error reading bundledTranslations.json: ${err}`);
+			});
 		}
 	};
 	try {
