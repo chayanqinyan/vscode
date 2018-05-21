@@ -6,15 +6,12 @@
 declare module 'vscode' {
 
 	/**
-	 * The version of the editor.
+	 * 编辑器的版本.
 	 */
 	export const version: string;
 
 	/**
-	 * Represents a reference to a command. Provides a title which
-	 * will be used to represent a command in the UI and, optionally,
-	 * an array of arguments which will be passed to the command handler
-	 * function when invoked.
+	 * 表示对命令的引用。提供一个标题 *将用于表示UI中的命令，并且可选地， *将传递给命令处理程序的参数数组 *调用时的功能.
 	 */
 	export interface Command {
 		/**
